@@ -21,8 +21,8 @@ RUN sudo -u brewpi git clone --branch 0.3.8 --depth 1  https://github.com/BrewPi
 RUN sed -i 's#inWaiting = ser.inWaiting()#inWaiting = ser.readline()#' /home/brewpi/brewpi.py
 RUN sed -i 's#newData = ser.read(inWaiting)#newData = inWaiting#' /home/brewpi/brewpi.py
 RUN sed -i 's#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6)#' /home/brewpi/BrewPiUtil.py
-RUN echo 'port = socket://example:23' > /home/brewpi/settings/config.cfg
-RUN echo 'altport = socket://example:23' >> /home/brewpi/settings/config.cfg
+RUN echo 'port = socket://192.168.1.126:23' > /home/brewpi/settings/config.cfg
+RUN echo 'altport = socket://192.168.1.126:23' >> /home/brewpi/settings/config.cfg
 RUN chown -R brewpi:users /home/brewpi/settings
 RUN chmod +x /home/brewpi/*.py
 RUN chmod +x /home/brewpi/utils/*.sh
