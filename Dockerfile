@@ -1,7 +1,10 @@
 FROM phusion/baseimage:0.9.18
  
 MAINTAINER roach@dopegoat.com
- 
+
+ENV AVR=192.168.1.126:23
+ENV TZ=America/Montreal
+
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 RUN apt-get install --no-install-recommends -y apache2 libapache2-mod-php5 php5-cli php5-common php5-cgi git git-core php5  python-serial python-simplejson python-configobj python-psutil python-git python-pip python-dev build-essential
 RUN pip install pyserial --upgrade
