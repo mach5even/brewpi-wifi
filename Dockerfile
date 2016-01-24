@@ -24,7 +24,7 @@ RUN sudo -u brewpi git clone --branch 0.3.8 --depth 1  https://github.com/BrewPi
     rm -rf /var/www/* && sudo -u www-data git clone https://github.com/BrewPi/brewpi-www /var/www 
 RUN sed -i 's#inWaiting = ser.inWaiting()#inWaiting = ser.readline()#' /home/brewpi/brewpi.py
 RUN sed -i 's#newData = ser.read(inWaiting)#newData = inWaiting#' /home/brewpi/brewpi.py
-RUN sed -i 's#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6)#' /home/brewpi/BrewPiUtil.py
+RUN sed -i 's#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=1)#' /home/brewpi/BrewPiUtil.py
 RUN chown -R brewpi:users /home/brewpi/settings
 RUN chmod +x /home/brewpi/*.py
 RUN chmod +x /home/brewpi/utils/*.sh
