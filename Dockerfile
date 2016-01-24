@@ -25,6 +25,9 @@ RUN sudo -u brewpi git clone --branch 0.3.8 --depth 1  https://github.com/BrewPi
 RUN sed -i 's#inWaiting = ser.inWaiting()#inWaiting = ser.readline()#' /home/brewpi/brewpi.py
 RUN sed -i 's#newData = ser.read(inWaiting)#newData = inWaiting#' /home/brewpi/brewpi.py
 RUN sed -i 's#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=1)#' /home/brewpi/BrewPiUtil.py
+RUN sed -i 's#brewpi:brewpi#brewpi:users#' /home/brewpi/utils/fixPermissions.sh
+RUN sed -i 's#ser.setTimeout(1)#\# ser.setTimeout(1)#' /home/brewpi/brewpiVersion.py
+RUN sed -i 's#ser.setTimeout(oldTimeOut) # restore previous serial timeout value#\# ser.setTimeout(oldTimeOut) # restore previous serial timeout value#' /home/brewpi/brewpiVersion.py
 RUN chown -R brewpi:users /home/brewpi/settings
 RUN chmod +x /home/brewpi/*.py
 RUN chmod +x /home/brewpi/utils/*.sh
@@ -45,6 +48,7 @@ RUN echo "sed -i 's#^port.*#port = socket://'\"\$AVR\"'#' /home/brewpi/settings/
 RUN echo "sed -i 's#^altport.*#altport = socket://'\"\$AVR\"'#' /home/brewpi/settings/config.cfg" >>/root/runbrewpi.sh
 RUN echo "sed -i 's#^TZ.*#TZ='\"\$TZ\"'#' /etc/cron.d/brewpi" >>/root/runbrewpi.sh
 RUN echo "/usr/sbin/apache2ctl -D FOREGROUND" >>/root/runbrewpi.sh
+RUN /home/brewpi/utils/fixPermissions.sh
 RUN chmod +x /root/runbrewpi.sh
 
 VOLUME /home/brewpi/data
