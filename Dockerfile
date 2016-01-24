@@ -2,8 +2,6 @@ FROM phusion/baseimage:0.9.18
  
 MAINTAINER roach@dopegoat.com
 
-ENV AVR=192.168.1.126:23
-ENV TZ=America/Montreal
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
