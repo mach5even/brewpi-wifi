@@ -1,6 +1,6 @@
 FROM phusion/baseimage:0.9.18
  
-MAINTAINER roach@dopegoat.com
+MAINTAINER mac@mach5even.com
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV AVR=192.168.1.126:23 
