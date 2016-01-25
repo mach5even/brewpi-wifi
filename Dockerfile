@@ -3,6 +3,8 @@ FROM phusion/baseimage:0.9.18
 MAINTAINER roach@dopegoat.com
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV AVR=192.168.1.126:23 
+ENV TZ=America/Montreal
 
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 RUN apt-get install --no-install-recommends -y apache2 libapache2-mod-php5 php5-cli php5-common php5-cgi git git-core php5  python-serial python-simplejson python-configobj python-psutil python-git python-pip python-dev build-essential
@@ -36,7 +38,6 @@ RUN echo 'beerName = default' >> /home/brewpi/settings/config.cfg
 RUN echo 'interval = 120.0' >> /home/brewpi/settings/config.cfg
 RUN echo 'dataLogging = active' >> /home/brewpi/settings/config.cfg
 RUN echo 'port = socket://example' >> /home/brewpi/settings/config.cfg
-RUN echo 'altport = socket://example' >> /home/brewpi/settings/config.cfg
 RUN echo 'profileName = default' >> /home/brewpi/settings/config.cfg
 RUN echo "TZ=$TZ" >/etc/cron.d/brewpi
 RUN echo "* * * * * brewpi python /home/brewpi/brewpi.py --checkstartuponly --dontrunfile /home/brewpi/brewpi.py 1>/dev/null 2>>/home/brewpi/logs/stderr.txt; [ \$? != 0 ] && python -u /home/brewpi/brewpi.py 1>/home/brewpi/logs/stdout.txt 2>>/home/brewpi/logs/stderr.txt &" >>/etc/cron.d/brewpi
