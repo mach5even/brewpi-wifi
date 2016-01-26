@@ -3,8 +3,6 @@ FROM phusion/baseimage:latest
 MAINTAINER mac@mach5even.com
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV AVR=192.168.1.126:23 
-ENV TZ=America/Montreal
 
 CMD ["/sbin/my_init"]
 
@@ -59,12 +57,8 @@ RUN echo '#!/bin/sh' >/etc/service/apache2/run
 RUN echo 'exec /usr/sbin/apache2ctl -D FOREGROUND' >>/etc/service/apache2/run
 RUN chmod +x /etc/service/apache2/run
 
-RUN echo 'echo Startup' > /root/startup.sh
-
 VOLUME /home/brewpi/data
 VOLUME /var/www/data
 VOLUME /home/brewpi/settings
  
 EXPOSE 80
- 
-ENTRYPOINT /root/startup.sh
