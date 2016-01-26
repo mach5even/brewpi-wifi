@@ -2,8 +2,7 @@ FROM phusion/baseimage:latest
  
 MAINTAINER mac@mach5even.com
 
-ARG $AVR
-ARG $TZ
+ENV DEBIAN_FRONTEND noninteractive
 
 CMD ["/sbin/my_init"]
  
@@ -27,7 +26,7 @@ RUN find /var/www -type f -exec chmod g+rwx {} \;
 RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www#' /etc/apache2/sites-available/000-default.conf
 
 RUN sudo -u brewpi git clone --branch legacy --depth 1  https://github.com/BrewPi/brewpi-script /home/brewpi && \
-    rm -rf /var/www/* && sudo -u www-data git clone https://github.com/BrewPi/brewpi-www /var/www 
+    rm -rf /var/www/* && sudo -u www-data git clone --branch legacy https://github.com/BrewPi/brewpi-www /var/www 
 
 RUN chmod -R g+w /var/www/data
 
@@ -55,6 +54,9 @@ RUN mkdir /etc/service/apache2
 RUN echo '#!/bin/sh' >/etc/service/apache2/run
 RUN echo 'exec /usr/sbin/apache2ctl -D FOREGROUND' >>/etc/service/apache2/run
 RUN chmod +x /etc/service/apache2/run
+
+RUN sed -i 's#brewpi:brewpi#brewpi:users#' /home/brewpi/utils/fixPermissions.sh
+RUN /home/brewpi/utils/fixPermissions.sh
 
 VOLUME /home/brewpi/data
 VOLUME /var/www/data
