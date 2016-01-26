@@ -57,7 +57,7 @@ RUN echo '#!/bin/sh' >/etc/service/apache2/run
 RUN echo 'exec /usr/sbin/apache2ctl -D FOREGROUND' >>/etc/service/apache2/run
 RUN chmod +x /etc/service/apache2/run
 
-RUN echo 'echo \'Starting up\'' > /root/startup.sh
+RUN echo 'echo Startup' > /root/startup.sh
 
 VOLUME /home/brewpi/data
 VOLUME /var/www/data
