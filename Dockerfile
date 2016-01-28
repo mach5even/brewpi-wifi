@@ -57,6 +57,7 @@ RUN chmod +x /etc/service/apache2/run
 
 RUN sed -i 's#brewpi:brewpi#brewpi:users#' /home/brewpi/utils/fixPermissions.sh
 RUN /home/brewpi/utils/fixPermissions.sh
+RUN sed -i 's#{'\''val'\'': 14, '\''text'\'': '\''A0'\'', '\''type'\'': '\''free'\''},#{'\''val'\'': 14, '\''text'\'': '\''A0'\'', '\''type'\'': '\''onewire'\''},#' /home/brewpi/pinList.py
 
 VOLUME /home/brewpi/data
 VOLUME /var/www/data
